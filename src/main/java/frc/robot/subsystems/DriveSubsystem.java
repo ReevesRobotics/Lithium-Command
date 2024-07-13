@@ -226,7 +226,6 @@ public class DriveSubsystem extends SubsystemBase {
           try {
             Thread.sleep(Double.valueOf(runTime * 1000).longValue());
           } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
 

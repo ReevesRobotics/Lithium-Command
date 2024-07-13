@@ -22,6 +22,7 @@ public final class Constants {
   public enum AutoMode {
     LEFT,
     CENTER,
+    MORECENTER,
     RIGHT
   }
 

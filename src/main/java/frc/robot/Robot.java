@@ -38,7 +38,8 @@ public class Robot extends TimedRobot {
     // Chooser for start position
     modeChooser = new SendableChooser<AutoMode>();
     modeChooser.setDefaultOption("Left", AutoMode.LEFT); // implicitly added as well
-    modeChooser.addOption("Center", AutoMode.CENTER);
+    modeChooser.addOption("Center", AutoMode.CENTER);   
+    modeChooser.addOption("More Center", AutoMode.MORECENTER);
     modeChooser.addOption("Right", AutoMode.RIGHT);
     SmartDashboard.putData("Auto Mode", modeChooser);
 
