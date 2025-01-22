@@ -5,9 +5,9 @@
 package frc.robot;
 
 //import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,8 +39,8 @@ public class RobotContainer extends SubsystemBase {
       new CommandXboxController(OIConstants.DRIVER_CONTROLLER_PORT);
   public static CommandXboxController operatorController =
       new CommandXboxController(OIConstants.OPERATOR_CONTROLLER_PORT);
-  public static CANSparkMax feederMotor =
-      new CANSparkMax(DriveConstants.FEEDER_MOTOR_PORT, MotorType.kBrushless);
+  public static SparkMax feederMotor =
+      new SparkMax(DriveConstants.FEEDER_MOTOR_PORT, MotorType.kBrushless);
 
   // The robot's subsystems
   public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(feederMotor);
