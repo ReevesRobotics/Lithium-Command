@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
+//import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -178,9 +178,9 @@ public class RobotContainer extends SubsystemBase {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return new PathPlannerAuto("RavenCompetition");
-  }
+  // public Command getAutonomousCommand() {
+  //   return new PathPlannerAuto("RavenCompetition");
+  // }
 
   public Command auto(AutoMode mode) {
     return this.runOnce(

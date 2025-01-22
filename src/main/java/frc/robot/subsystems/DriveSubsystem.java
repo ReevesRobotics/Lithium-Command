@@ -5,9 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.ReplanningConfig;
+// import com.pathplanner.lib.auto.AutoBuilder;
+// import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+// import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -74,25 +74,25 @@ public class DriveSubsystem extends SubsystemBase {
   private double omega = 0; // Angluar Velocity
 
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {
-    gyro.setYaw(0);
+  // public DriveSubsystem() {
+  //   gyro.setYaw(0);
 
-    AutoBuilder.configureHolonomic(
-        this::getPose,
-        this::resetPose,
-        this::getChassisSpeed,
-        this::setChassisSpeed,
-        new HolonomicPathFollowerConfig(
-            AutoConstants.MAX_SPEED_METERS_PER_SECOND,
-            0.5
-                * Math.sqrt(
-                    Math.pow(DriveConstants.WHEEL_BASE, 2)
-                        + Math.pow(
-                            DriveConstants.TRACK_WIDTH, 2)), /* TODO: test / increase accuracy */
-            new ReplanningConfig(true, true)),
-        this::switchAlliance,
-        this);
-  }
+  //   AutoBuilder.configureHolonomic(
+  //       this::getPose,
+  //       this::resetPose,
+  //       this::getChassisSpeed,
+  //       this::setChassisSpeed,
+  //       new HolonomicPathFollowerConfig(
+  //           AutoConstants.MAX_SPEED_METERS_PER_SECOND,
+  //           0.5
+  //               * Math.sqrt(
+  //                   Math.pow(DriveConstants.WHEEL_BASE, 2)
+  //                       + Math.pow(
+  //                           DriveConstants.TRACK_WIDTH, 2)), /* TODO: test / increase accuracy */
+  //           new ReplanningConfig(true, true)),
+  //       this::switchAlliance,
+  //       this);
+  // }
 
   public Command getZeroHeadingCommand() {
     return this.runOnce(
