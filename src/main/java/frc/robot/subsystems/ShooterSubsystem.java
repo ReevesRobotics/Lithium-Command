@@ -1,7 +1,8 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -9,20 +10,24 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private CANSparkMax shooterLeft;
-  private CANSparkMax shooterRight;
-  private CANSparkMax feederMotor;
+  private SparkMax shooterLeft;
+  private SparkMax shooterRight;
+  private SparkMax feederMotor;
 
   Pose3d robotPositonToApril;
 
-  public ShooterSubsystem(CANSparkMax feederMotor) {
+  public ShooterSubsystem(SparkMax feederMotor) {
     this.feederMotor = feederMotor;
-    shooterLeft = new CANSparkMax(DriveConstants.LEFT_SHOOTER_MOTOR_PORT, MotorType.kBrushless);
-    shooterRight = new CANSparkMax(DriveConstants.RIGHT_SHOOTER_MOTOR_PORT, MotorType.kBrushless);
+    shooterLeft = new SparkMax(DriveConstants.LEFT_SHOOTER_MOTOR_PORT, MotorType.kBrushless);
+    shooterRight = new SparkMax(DriveConstants.RIGHT_SHOOTER_MOTOR_PORT, MotorType.kBrushless);
     // robotPositonToApril = new Pose3d();
 
-    shooterLeft.setSmartCurrentLimit(80);
-    shooterRight.setSmartCurrentLimit(80);
+    SparkMaxConfig shooterLeftConfig = new SparkMaxConfig();
+    SparkMaxConfig shooterRightConfig = new SparkMaxConfig();
+
+
+    shooterLeftConfig.smartCurrentLimit(80);
+    shooterRightConfig.smartCurrentLimit(80);
   }
 
   // @Override

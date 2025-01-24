@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.config.SparkMaxConfig;
 //import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -55,9 +59,11 @@ public class RobotContainer extends SubsystemBase {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    feederMotor.setSmartCurrentLimit(80);
-    feederMotor.setIdleMode(IdleMode.kBrake);
-    feederMotor.burnFlash();
+
+    SparkMaxConfig feederMotorConfig = new SparkMaxConfig();
+    feederMotor.configure(feederMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    feederMotorConfig.smartCurrentLimit(80);
+    feederMotorConfig.idleMode(IdleMode.kBrake);
 
     // Configure the button bindings
     configureButtonBindings();

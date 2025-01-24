@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -12,8 +16,8 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ModuleConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private CANSparkMax leftElevatorMotor;
-  private CANSparkMax rightElevatorMotor;
+  private SparkMax leftElevatorMotor;
+  private SparkMax rightElevatorMotor;
   public RelativeEncoder rightElevatorEncoder;
   private RelativeEncoder leftElevatorEncoder;
 
@@ -21,18 +25,18 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem(CommandXboxController controller) {
     leftElevatorMotor =
-        new CANSparkMax(DriveConstants.LEFT_ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
+        new SparkMax(DriveConstants.LEFT_ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
     rightElevatorMotor =
-        new CANSparkMax(DriveConstants.RIGHT_ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
+        new SparkMax(DriveConstants.RIGHT_ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
 
     gController = controller;
 
-    // leftElevatorMotor.setSmartCurrentLimit(230);
-    // rightElevatorMotor.setSmartCurrentLimit(230);
-    leftElevatorMotor.setIdleMode(IdleMode.kBrake);
-    rightElevatorMotor.setIdleMode(IdleMode.kBrake);
-    leftElevatorMotor.burnFlash();
-    rightElevatorMotor.burnFlash();
+    SparkMaxConfig leftElevConfig = new SparkMaxConfig();
+    leftElevConfig.idleMode(IdleMode.kBrake);
+    leftElevatorMotor.configure(leftElevConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    SparkMaxConfig rightElevConfig = new SparkMaxConfig();
+    rightElevConfig.idleMode(IdleMode.kBrake);
+    rightElevatorMotor.configure(leftElevConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     rightElevatorEncoder = rightElevatorMotor.getEncoder();
     leftElevatorEncoder = leftElevatorMotor.getEncoder();

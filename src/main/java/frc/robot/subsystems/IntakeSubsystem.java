@@ -1,21 +1,21 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private CANSparkMax intakingMotor;
-  private CANSparkMax positioningMotor;
-  private CANSparkMax feederMotor;
+  private SparkMax intakingMotor;
+  private SparkMax positioningMotor;
+  private SparkMax feederMotor;
 
-  public IntakeSubsystem(CANSparkMax feederMotor) {
+  public IntakeSubsystem(SparkMax feederMotor) {
     this.feederMotor = feederMotor;
-    intakingMotor = new CANSparkMax(DriveConstants.INTAKE_MOTOR_PORT, MotorType.kBrushless);
-    positioningMotor = new CANSparkMax(DriveConstants.POSITION_MOTOR_PORT, MotorType.kBrushless);
+    intakingMotor = new SparkMax(DriveConstants.INTAKE_MOTOR_PORT, MotorType.kBrushless);
+    positioningMotor = new SparkMax(DriveConstants.POSITION_MOTOR_PORT, MotorType.kBrushless);
   }
 
   @Override

@@ -16,28 +16,28 @@ import org.photonvision.targeting.PhotonPipelineResult;
 
 /** Subsystem for Position Estimation based on AprilTags */
 public class CameraSubsystem extends SubsystemBase {
-  private final PhotonCamera photonCamera;
+  //private final PhotonCamera photonCamera;
   private AprilTagFieldLayout aprilTagFieldLayout;
   private PhotonPoseEstimator poseEstimator;
   private Pose3d estimatedRobotPose = new Pose3d();
 
   /** Initialises the Camera subsystem with the camera named in ModuleConstants */
-  public CameraSubsystem() {
-    photonCamera = new PhotonCamera(Constants.ModuleConstants.CAMERA_NAME);
+  // public CameraSubsystem() {
+  //   photonCamera = new PhotonCamera(Constants.ModuleConstants.CAMERA_NAME);
 
-    try {
-      aprilTagFieldLayout =
-          AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
-      poseEstimator =
-          new PhotonPoseEstimator(
-              aprilTagFieldLayout,
-              PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-              photonCamera,
-              new Transform3d(-0.127, 0, 0.5842, new Rotation3d(0, Math.toRadians(7), 0)));
-    } catch (Exception e) {
-      System.out.println("IOException while loading AprilTag field layout!");
-    }
-  }
+  //   try {
+  //     aprilTagFieldLayout =
+  //         AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
+  //     poseEstimator =
+  //         new PhotonPoseEstimator(
+  //             aprilTagFieldLayout,
+  //             PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+  //             photonCamera,
+  //             new Transform3d(-0.127, 0, 0.5842, new Rotation3d(0, Math.toRadians(7), 0)));
+  //   } catch (Exception e) {
+  //     System.out.println("IOException while loading AprilTag field layout!");
+  //   }
+  // }
 
   /**
    * Gets the current best guess position of the robot.
@@ -58,16 +58,16 @@ public class CameraSubsystem extends SubsystemBase {
     return estimatedRobotPose;
   }
 
-  @Override
-  public void periodic() {
-    PhotonPipelineResult result = photonCamera.getLatestResult();
-    if (result.hasTargets()) {
-      poseEstimator.setReferencePose(estimatedRobotPose);
-      // gets the estimated pose
-      Optional<EstimatedRobotPose> estimatedPoseOptional = poseEstimator.update();
-      if (estimatedPoseOptional.isPresent()) {
-        estimatedRobotPose = estimatedPoseOptional.get().estimatedPose;
-      }
-    }
-  }
+  // @Override
+  // public void periodic() {
+  //   PhotonPipelineResult result = photonCamera.getLatestResult();
+  //   if (result.hasTargets()) {
+  //     poseEstimator.setReferencePose(estimatedRobotPose);
+  //     // gets the estimated pose
+  //     Optional<EstimatedRobotPose> estimatedPoseOptional = poseEstimator.update();
+  //     if (estimatedPoseOptional.isPresent()) {
+  //       estimatedRobotPose = estimatedPoseOptional.get().estimatedPose;
+  //     }
+  //   }
+  // }
 }

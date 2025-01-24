@@ -5,21 +5,22 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkLowLevel.PeriodicFrame;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.spark.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.ModuleConstants;
 
 public class SwerveModule {
-  private final CANSparkMax m_drivingSparkMax;
-  private final CANSparkMax m_turningSparkMax;
+  private final SparkMax m_drivingSparkMax;
+  private final SparkMax m_turningSparkMax;
 
   private final RelativeEncoder m_drivingEncoder;
   private final AbsoluteEncoder m_turningEncoder;
@@ -37,8 +38,8 @@ public class SwerveModule {
    */
   public SwerveModule(
       int drivingCANId, int turningCANId, double chassisAngularOffset, boolean isReversed) {
-    m_drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);
-    m_turningSparkMax = new CANSparkMax(turningCANId, MotorType.kBrushless);
+    m_drivingSparkMax = new SparkMax(drivingCANId, MotorType.kBrushless);
+    m_turningSparkMax = new SparkMax(turningCANId, MotorType.kBrushless);
 
     // m_turningSparkMax = new CANSparkMax(0, MotorType.kBrushless);
 
@@ -180,12 +181,12 @@ public class SwerveModule {
 
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     m_drivingPIDController.setReference(
-        optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
+        optimizedDesiredState.speedMetersPerSecond, SparkMax.ControlType.kVelocity);
     // Add the offset back as we set the PIDController, because the PIDController
     // cares about the encoder's reference frame
     m_turningPIDController.setReference(
         optimizedDesiredState.angle.getRadians() + m_chassisAngularOffset,
-        CANSparkMax.ControlType.kPosition);
+        SparkMax.ControlType.kPosition);
 
     m_desiredState = optimizedDesiredState; // still chassis reference frame
   }
