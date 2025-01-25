@@ -89,7 +89,7 @@ public class RobotContainer extends SubsystemBase {
               robotDrive.drive(
                   Math.pow(-yInput, 3) * Math.abs(yInput),
                   Math.pow(-xInput, 3) * Math.abs(xInput),
-                  Math.pow(MathUtil.applyDeadband(-thetaInput, ModuleConstants.DEADBAND), 3)
+                  Math.pow(MathUtil.applyDeadband(thetaInput, ModuleConstants.DEADBAND), 3)
                       * Math.abs(thetaInput),
                   true);
             },

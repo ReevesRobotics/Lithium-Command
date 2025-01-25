@@ -27,10 +27,10 @@ public final class Constants {
 
   public static final class DriveConstants {
 
-    public static final double LEFT_FRONT_ENCODER_OFFSET = Math.toRadians(7.22);
-    public static final double LEFT_REAR_ENCODER_OFFSET = Math.toRadians(353.85);
-    public static final double RIGHT_FRONT_ENCODER_OFFET = Math.toRadians(346.68);
-    public static final double RIGHT_REAR_ENCODER_OFFET = Math.toRadians(358.19);
+    public static final double LEFT_FRONT_ENCODER_OFFSET = 0;
+    public static final double LEFT_REAR_ENCODER_OFFSET = 0;
+    public static final double RIGHT_FRONT_ENCODER_OFFET = 0;
+    public static final double RIGHT_REAR_ENCODER_OFFET = Math.PI;
 
     public static final int FRONT_LEFT_DRIVE_MOTOR_PORT = 4;
     public static final int REAR_LEFT_DRIVE_MOTOR_PORT = 5;
@@ -78,8 +78,8 @@ public final class Constants {
 
     public static final boolean GYRO_REVERSED = false;
 
-    public static final double MAX_SPEED_METERS_PER_SECOND = 25;
-    public static final double ROTATION_DIVISOR = 2;
+    public static final double MAX_SPEED_METERS_PER_SECOND = 2;
+    public static final double ROTATION_DIVISOR = 3;
   }
 
   public static final class ModuleConstants {
@@ -96,7 +96,7 @@ public final class Constants {
     public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED =
         2 * Math.PI;
 
-    public static final double MAX_MODULE_METERS_PER_SECOND = 25;
+    public static final double MAX_MODULE_METERS_PER_SECOND = 2;
 
     // public static final double GEAR_RATIO = 8.14;
 

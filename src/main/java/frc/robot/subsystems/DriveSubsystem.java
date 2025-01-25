@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix.sensors.PigeonIMU;
 // import com.pathplanner.lib.auto.AutoBuilder;
 // import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 // import com.pathplanner.lib.util.ReplanningConfig;
@@ -29,37 +29,37 @@ public class DriveSubsystem extends SubsystemBase {
           DriveConstants.FRONT_LEFT_DRIVE_MOTOR_PORT,
           DriveConstants.FRONT_LEFT_TURNING_MOTOR_PORT,
           DriveConstants.LEFT_FRONT_ENCODER_OFFSET,
-          true);
+          false);
 
   public final SwerveModule rearLeft =
       new SwerveModule(
           DriveConstants.REAR_LEFT_DRIVE_MOTOR_PORT,
           DriveConstants.REAR_LEFT_TURNING_MOTOR_PORT,
           DriveConstants.LEFT_REAR_ENCODER_OFFSET,
-          true);
+          false);
 
   public final SwerveModule frontRight =
       new SwerveModule(
           DriveConstants.FRONT_RIGHT_DRIVE_MOTOR_PORT,
           DriveConstants.FRONT_RIGHT_TURNING_MOTOR_PORT,
           DriveConstants.RIGHT_FRONT_ENCODER_OFFET,
-          true);
+          false);
 
   public final SwerveModule rearRight =
       new SwerveModule(
           DriveConstants.REAR_RIGHT_DRIVE_MOTOR_PORT,
           DriveConstants.REAR_RIGHT_TURNING_MOTOR_PORT,
           DriveConstants.RIGHT_REAR_ENCODER_OFFET,
-          true);
+          false);
 
   // The gyro sensor
-  public final Pigeon2 gyro = new Pigeon2(30);
+  public final PigeonIMU gyro = new PigeonIMU(30);
 
   // Odometry class for tracking robot pose
   SwerveDriveOdometry odometry =
       new SwerveDriveOdometry(
           DriveConstants.DRIVE_KINEMATICS,
-          new Rotation2d(gyro.getYaw().getValueAsDouble()),
+          new Rotation2d(gyro.getYaw()),
           new SwerveModulePosition[] {
             frontLeft.getPosition(),
             frontRight.getPosition(),
@@ -104,7 +104,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // Update omega rotation
-    double yaw = gyro.getYaw().getValueAsDouble();
+    double yaw = gyro.getYaw();
     rollingDeltaYaw[rollingDeltaYawIndex] = yaw - lastYaw;
     lastYaw = yaw;
     rollingDeltaYawIndex++;
@@ -119,7 +119,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Update the odometry in the periodic block
     odometry.update(
-        new Rotation2d(gyro.getYaw().getValueAsDouble()),
+        new Rotation2d(gyro.getYaw()),
         new SwerveModulePosition[] {
           frontLeft.getPosition(),
           frontRight.getPosition(),
@@ -147,7 +147,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return ChassisSpeed
    */
   public ChassisSpeeds getChassisSpeed() {
-    double yaw = gyro.getYaw().getValueAsDouble();
+    double yaw = gyro.getYaw();
     double speedMPS =
         (frontLeft.getState().speedMetersPerSecond
                 + frontRight.getState().speedMetersPerSecond
@@ -178,7 +178,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void resetPose(Pose2d pose) {
     odometry.resetPosition(
-        new Rotation2d(gyro.getYaw().getValueAsDouble()),
+        new Rotation2d(gyro.getYaw()),
         new SwerveModulePosition[] {
           frontLeft.getPosition(),
           frontRight.getPosition(),
@@ -267,11 +267,11 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-    return gyro.getYaw().getValueAsDouble();
+    return gyro.getYaw();
   }
 
   private double getGyroValue() {
-    return gyro.getYaw().getValueAsDouble() * Math.PI / 180;
+    return gyro.getYaw() * Math.PI / 180;
   }
 
   public double getFrontLeft() {
